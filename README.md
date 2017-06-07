@@ -17,7 +17,7 @@ A very simple and basic Typescript Starter boilerplate template based on npm.
 # Getting started
 First clone this repository
 ```
-git clone --depth=1 https://github.com/nea/Typescript-Starter.git <project_name>
+git clone https://github.com/nea/Typescript-Starter.git <project_name>
 ```
 or download the [zip][1] and extract it.
 
