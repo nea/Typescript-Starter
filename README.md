@@ -61,6 +61,6 @@ This source and the whole package comes without warranty. It may or may not harm
 ## Personal Note
 *I don't know if this is very useful for a lot of people but I was looking for a very simple and basic Typescript Starter template without any grunt, gulp, browsersify, uglify etc. Those are all very sane and good systems and dependencies, but to just get started may overwhelm some people. Therefore, I created an absolute basic compiler/copy system to just get started. I hope this proves useful to you... with all its Bugs and Issues ;) If you like it you can give me a shout at [INsanityDesign][1] or let me know via this repository.*
 
-  [1]: https://github.com/nea/typescript-starter-npm/archive/master.zip
+  [1]: https://github.com/nea/Typescript-Starter/archive/master.zip
   [2]: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
   [3]: https://docs.npmjs.com/files/package.json
