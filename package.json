@@ -1,0 +1,40 @@
+{
+  "name": "typescript-starter-npm",
+  "version": "1.0.0",
+  "description": "A very simple and basic Typescript Starter boilerplate template based on npm",  
+  "author": "Savas Ziplies",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nea/Typescript-Starter"
+  },
+  "bugs": "https://github.com/nea/Typescript-Starter/issues",
+  "keywords": [
+    "npm",
+    "scripts",
+    "watch",
+    "typescript",
+    "tsc",
+	"onchange"
+  ],
+  "scripts": {
+    "start": "run-s watch",
+    "build": "run-s build:*",
+    "serve": "browser-sync start -s \"bin\" -f \"bin\"",
+	"build:assets": "copyfiles -u 1 \"src/**/*.js\" \"src/**/*.css\" \"src/**/*.html\" \"src/**/*.{png,jpg,gif}\" bin",
+    "build:scss": "node-sass --output-style compressed -r src -o bin",
+	"build:tsc": "tsc",	
+	"watch:tsc": "tsc -w",
+	"watch:scss": "onchange \"src/**/*.scss\" -- run-s build:scss",
+    "watch:assets": "onchange \"src/**/*.js\" \"src/**/*.css\" \"src/**/*.html\" \"src/**/*.{png,jpg,gif}\" -- run-s build:assets",
+    "watch": "run-p serve watch:*"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.0",
+    "copyfiles": "^1.2.0",
+    "node-sass": "^4.5.0",
+    "npm-run-all": "^4.0.0",
+    "onchange": "^3.2.0",
+    "typescript": "^2.3.0"
+  }
+}
