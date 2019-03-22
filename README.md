@@ -1,18 +1,15 @@
-# Typescript Starter
-A very simple and basic Typescript Starter boilerplate template based on npm.
+# Conversely
+A dependency-free, opinionated library of functions for evaluating an object and converting it to either a primitive or `null`.
+Conversely is intended for use in data validation or similar applications.
 
 ## Features
-* Just npm *(no gulp, grunt or others)*
-* Compiles and watches Typescript sources
-* Compiles and watches SCSS sources
-* Includes css, js, png, jpg, gif and html sources
-* Keeps the original file structure
-* Includes browser-sync for a local setup
-* *No browsersify, uglify, lint, testing etc. (at least for now)*
+* Works with function: `numberify( ()=> 1)` returns `1`.
+* Works with object: `stringify( { v: 'A', valueOf: () => this.v;} )` returns `'A'`.
+* Predictable and non-aggressive: `booleanify('false')` returns `null` instead of `true` or `false`
 
 ## Latest Versions
-* 1.0.0
-  * Initial starter boilerplate template
+* 0.1.0
+  * Initial commit
 
 # Getting started
 First clone this repository
@@ -58,10 +55,6 @@ For more information check out the [tsconfig.json][2] and [package.json][3] docu
 ## Disclaimer
 This source and the whole package comes without warranty. It may or may not harm your computer or cell phone. Please use with care. Any damage cannot be related back to the author. The source has been tested on a virtual environment and scanned for viruses and has passed all tests.
 
-## Personal Note
-*I don't know if this is very useful for a lot of people but I was looking for a very simple and basic Typescript Starter template without any grunt, gulp, browsersify, uglify etc. Those are all very sane and good systems and dependencies, but to just get started may overwhelm some people. Therefore, I created an absolute basic compiler/copy system to just get started. I hope this proves useful to you... with all its Bugs and Issues ;) If you like it you can give me a shout at [INsanityDesign][4] or let me know via this repository.*
-
   [1]: https://github.com/nea/Typescript-Starter/archive/master.zip
   [2]: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
   [3]: https://docs.npmjs.com/files/package.json
-  [4]: https://insanitydesign.com
