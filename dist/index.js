@@ -1,11 +1,11 @@
 /**
- * Library of functions for strict convertion to primitive values
+ * A library of functions for strict convertion to primitive values
  */
 'use strict';
 /**
  * Evaluate a value and convert it to either a finite number or null.
  */
-function toNumber(src) {
+function numberify(src) {
     function __toFinite(v) {
         switch (typeof v) {
             case 'number':
@@ -45,8 +45,8 @@ function toNumber(src) {
  * if the value evaluates to 0, "0", or false. Otherwise, return `null`
  * (either true or false)..
  */
-function toBoolean(src) {
-    function __toBoolean(v) {
+function booleanify(src) {
+    function __booleanify(v) {
         switch (v) {
             case "1":
             case 1:
@@ -68,18 +68,18 @@ function toBoolean(src) {
     if (typeof src === 'object') {
         var objectValue = null;
         if (typeof src.valueOf === 'function') {
-            objectValue = __toBoolean(src.valueOf());
+            objectValue = __booleanify(src.valueOf());
         }
         if ((objectValue === null) && (typeof src.toString === 'function')) {
-            objectValue = __toBoolean(src.toString());
+            objectValue = __booleanify(src.toString());
         }
         return objectValue;
     }
-    return __toBoolean(src);
+    return __booleanify(src);
 }
 /** Evaluate a value and convert it to either a string or null */
-function toString(src) {
-    function __toString(v) {
+function stringify(src) {
+    function __stringify(v) {
         switch (typeof v) {
             case 'number':
                 return isFinite(v) ? String(v) : null; // Do not convert Infinity or NaN
@@ -98,13 +98,22 @@ function toString(src) {
         return null;
     if (typeof src === 'object') {
         var objectValue = null;
+        var objectString = null;
         if (typeof src.valueOf === 'function') {
-            objectValue = __toString(src.valueOf());
+            objectValue = src.valueOf();
         }
-        if ((objectValue === null) && (typeof src.toString === 'function')) {
-            objectValue = __toString(src.toString());
+        if (typeof src.stringify === 'function') {
+            objectString = src.stringify();
+            if (objectString === '[object Object]')
+                objectString = null;
         }
-        return objectValue;
+        // valueOf() takes precedence unless stringify() is a string
+        if (typeof objectString === 'string')
+            return objectString;
+        if ((objectValue !== null) && (objectValue !== undefined)) {
+            return __stringify(objectValue);
+        }
+        return __stringify(objectString);
     }
-    return __toString(src);
+    return __stringify(src);
 }
