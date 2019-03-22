@@ -1,15 +1,18 @@
 {
-    "compilerOptions": {                    
-		"target": "es5",
-		"module": "commonjs",
-		"outDir": "bin",
-		"removeComments": true
-	},
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
-    ]
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "target": "es5",
+    "rootDir": ".",
+    "outDir": "build"
+  },
+  "include": [
+    "src/*.ts",
+    "src/**/*.ts",
+    "test/*.ts",
+    "test/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+   ]
 }
