@@ -1,11 +1,12 @@
 /**
- * Library of functions for strict convertion to primitive values
+ * A library of functions for strict convertion to primitive values
  */
 
 'use strict';
 
  /**
   * A parameterless function that returns a number.
+  * @ignore
   * The following can be assigned to NumberFn:
   * ```
   * fn = () => Math.random();
@@ -26,6 +27,15 @@ type BooleanFn = {():boolean};
 type ObjectFn = {():object};
 /** A parameterless function that returns an array. See [[NumberFn]]. */
 type ArrayFn = {():[]};
+
+// Note: we can't actually test if a function is parameterless.
+// We could check if foo.length === 0 if a function is written like
+//    function foo(...args) {}
+// or
+//    function foo(x=null) {}
+// However, default parameter and rest parameter are ES6 features
+// and not well supported (e.g. in IE and GAS), and most functions
+// aren't written that way anyway.
 
 // tslint:disable:no-any
 type AnyObj = {[key:string]:any;};
@@ -65,26 +75,26 @@ type Numberable = number|string|boolean|NumberableFn|NumberableObj;
  /**
   * Strictly convert a string to either a finite number or null.
   * ```
-  * toNumber('2 '); // returns 2
-  * toNumber('2a'); // returns null
+  * numberify('2 '); // returns 2
+  * numberify('2a'); // returns null
   * ```
   */
-function toNumber(src: string): number|null;
+function numberify(src: string): number|null;
 
 /**
  * Strictly convert a number to either a finite number or null.
  * ```
- * toNumber(Math.PI); // returns 3.141592653589793
- * toNumber(NaN); // returns null
- * toNumber(Infinity); // returns null
+ * numberify(Math.PI); // returns 3.141592653589793
+ * numberify(NaN); // returns null
+ * numberify(Infinity); // returns null
  * ```
  */
-function toNumber(src: number): number|null;
+function numberify(src: number): number|null;
 
 /**
  * Strictly convert a boolean to 1 (true) or 0 (false).
  */
-function toNumber(src: boolean): number|null;
+function numberify(src: boolean): number|null;
 
 /**
  * Strictly convert an object to either a finite number or null. An object is
@@ -92,12 +102,12 @@ function toNumber(src: boolean): number|null;
  * a finite number, a string of a number, or a boolean.
  * ```
  * var range = {min: 0, max: 5};
- * toNumber(range); // returns null
+ * numberify(range); // returns null
  * range.valueOf = function() {return this.max-this.min;};
- * toNumber(range); // returns 5
+ * numberify(range); // returns 5
  * ```
  */
-function toNumber(src: object): number|null;
+function numberify(src: object): number|null;
 
 /**
  * Execute a function and strictly convert the returned value to
@@ -107,18 +117,18 @@ function toNumber(src: object): number|null;
  * var ONE = function() {return '1';};
  * var TRUE = function() {return true;};
  * var NOW = function() {return new Date();};
- * toNumber(PI); // returns 3.141592653589793
- * toNumber(ONE); // returns 1
- * toNumber(TRUE); // returns 1
- * toNumber(NOW); // returns (new Date()).valueOf(), which is a number
+ * numberify(PI); // returns 3.141592653589793
+ * numberify(ONE); // returns 1
+ * numberify(TRUE); // returns 1
+ * numberify(NOW); // returns (new Date()).valueOf(), which is a number
  * ```
  */
-function toNumber(src: Function): number|null;
+function numberify(src: Function): number|null;
 
  /**
   * Evaluate a value and convert it to either a finite number or null.
   */
-function toNumber(src: Numberable): number|null {
+function numberify(src: Numberable): number|null {
 
   function __toFinite(v: any): number|null { // tslint:disable-line:no-any
     switch (typeof v) {
@@ -188,27 +198,27 @@ type Booleanable = number|string|boolean|BooleanableFn|BooleanableObj;
 /**
  * Strictly convert a string to either a boolean or null.
  * ```
- * toBoolean('1'); // returns true
- * toBoolean('0'); // returns false
- * toBoolean('2'); // returns null
+ * booleanify('1'); // returns true
+ * booleanify('0'); // returns false
+ * booleanify('2'); // returns null
  * ```
  */
-function toBoolean(src: string): boolean|null;
+function booleanify(src: string): boolean|null;
 
 /**
  * Strictly convert a number to either a boolean or null.
  * ```
- * toBoolean(1); // returns true
- * toBoolean(0); // returns false
- * toBoolean(NaN); // returns null
+ * booleanify(1); // returns true
+ * booleanify(0); // returns false
+ * booleanify(NaN); // returns null
  * ```
  */
-function toBoolean(src: number): boolean|null;
+function booleanify(src: number): boolean|null;
 
 /**
  * Strictly convert a boolean to, well, a boolean.
  */
-function toBoolean(src: boolean): boolean;
+function booleanify(src: boolean): boolean;
 
 /**
  * Strictly convert an object to either a boolean or null. An object is
@@ -216,12 +226,12 @@ function toBoolean(src: boolean): boolean;
  * returns 1, 0, "1", "0", or a boolean.
  * ```
  * var equal = {a: 1, b: 2};
- * toBoolean(equal); // returns null
+ * booleanify(equal); // returns null
  * equal.valueOf = function() {return this.a==this.b;};
- * toBoolean(equal); // returns true
+ * booleanify(equal); // returns true
  * ```
  */
-function toBoolean(src: object): boolean|null;
+function booleanify(src: object): boolean|null;
 
 /**
  * Execute a function and strictly convert the returned value to
@@ -230,12 +240,12 @@ function toBoolean(src: object): boolean|null;
  * var TOSS_UP = function() {return (Math.random() < 0.5)?0:1;};
  * var ONE = function() {return '1';};
  * var TRUE = function() {return true;};
- * toBoolean(TOSS_UP); // returns true or false randomly
- * toBoolean(ONE); // returns true
- * toBoolean(TRUE); // returns true
+ * booleanify(TOSS_UP); // returns true or false randomly
+ * booleanify(ONE); // returns true
+ * booleanify(TRUE); // returns true
  * ```
  */
-function toBoolean(src: Function): boolean|null;
+function booleanify(src: Function): boolean|null;
 
 /**
  * Evaluate a value and convert it to either a boolean or null. Return `true`
@@ -243,9 +253,9 @@ function toBoolean(src: Function): boolean|null;
  * if the value evaluates to 0, "0", or false. Otherwise, return `null`
  * (either true or false)..
  */
-function toBoolean(src: Booleanable): boolean|null {
+function booleanify(src: Booleanable): boolean|null {
 
-  function __toBoolean(v: any): boolean|null { // tslint:disable-line:no-any
+  function __booleanify(v: any): boolean|null { // tslint:disable-line:no-any
     switch (v) {
       case "1":
       case 1:
@@ -268,17 +278,17 @@ function toBoolean(src: Booleanable): boolean|null {
     let objectValue: boolean|null = null;
 
     if (typeof src.valueOf === 'function') {
-      objectValue = __toBoolean(src.valueOf());
+      objectValue = __booleanify(src.valueOf());
     }
 
     if ((objectValue === null) && (typeof src.toString === 'function')) {
-      objectValue = __toBoolean(src.toString());
+      objectValue = __booleanify(src.toString());
     }
 
     return objectValue;
   }
 
-  return __toBoolean(src);
+  return __booleanify(src);
 }
 
 // **********************************************************************
@@ -295,7 +305,7 @@ type StringableFn = ConvertibleFn;
 /**
  * An object that may be convertible to a string. An object is convertible
  * if it has a valueOf() or toString() method that returns a finite number,
- * a string, or a boolean.
+ * a string that is not "[object Object]", or a boolean.
  * Example:
  * ```
  * person = {fName: 'John', lName: 'Doe', valueOf: function() {return this.fName + ' ' + this.lName;}};
@@ -309,9 +319,9 @@ type StringableObj = ConvertibleObj;
 type Stringable = number|string|boolean|StringableFn|StringableObj;
 
 /** Evaluate a value and convert it to either a string or null */
-function toString(src: Stringable): string|null {
+function stringify(src: Stringable): string|null {
 
-  function __toString(v: any): string|null { // tslint:disable-line:no-any
+  function __stringify(v: any): string|null { // tslint:disable-line:no-any
     switch (typeof v) {
       case 'number':
           return isFinite(v)?String(v):null; // Do not convert Infinity or NaN
@@ -329,18 +339,26 @@ function toString(src: Stringable): string|null {
   if ((src === null) || (src === undefined)) return null;
 
   if (typeof src === 'object') {
-    let objectValue: string|null = null;
+
+    let objectValue: any = null;  // tslint:disable-line:no-any
+    let objectString: any = null; // tslint:disable-line:no-any
 
     if (typeof src.valueOf === 'function') {
-      objectValue = __toString(src.valueOf());
+      objectValue = src.valueOf();
     }
 
-    if ((objectValue === null) && (typeof src.toString === 'function')) {
-      objectValue = __toString(src.toString());
+    if (typeof src.stringify === 'function') {
+      objectString = src.stringify();
+      if (objectString === '[object Object]') objectString = null;
     }
 
-    return objectValue;
+    // valueOf() takes precedence unless stringify() is a string
+    if (typeof objectString === 'string') return objectString;
+    if ((objectValue !== null)&&(objectValue !== undefined)) {
+      return __stringify(objectValue);
+    }
+    return __stringify(objectString);
   }
 
-  return __toString(src);
+  return __stringify(src);
 }
