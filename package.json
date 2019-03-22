@@ -1,40 +1,43 @@
 {
-  "name": "typescript-starter-npm",
-  "version": "1.0.0",
-  "description": "A very simple and basic Typescript Starter boilerplate template based on npm",  
-  "author": "Savas Ziplies",
+  "name": "conversely",
+  "version": "0.1.0",
+  "description": "A library of functions for evaluating and converting an object to either a primitive or null",
+  "author": "Daniel Wang",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nea/Typescript-Starter"
+    "url": "https://github.com/dan1wang/Conversely"
   },
-  "bugs": "https://github.com/nea/Typescript-Starter/issues",
+  "bugs": "https://github.com/dan1wang/Conversely/issues",
   "keywords": [
     "npm",
-    "scripts",
-    "watch",
+    "converter",
+    "convertion",
+    "stringify",
+    "number",
+    "type",
+    "validation",
     "typescript",
-    "tsc",
-	"onchange"
+    "javascript",
+    "node.js",
+    ],
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "files": [
+    "build/src"
   ],
   "scripts": {
-    "start": "run-s watch",
-    "build": "run-s build:*",
-    "serve": "browser-sync start -s \"bin\" -f \"bin\"",
-	"build:assets": "copyfiles -u 1 \"src/**/*.js\" \"src/**/*.css\" \"src/**/*.html\" \"src/**/*.{png,jpg,gif}\" bin",
-    "build:scss": "node-sass --output-style compressed -r src -o bin",
-	"build:tsc": "tsc",	
-	"watch:tsc": "tsc -w",
-	"watch:scss": "onchange \"src/**/*.scss\" -- run-s build:scss",
-    "watch:assets": "onchange \"src/**/*.js\" \"src/**/*.css\" \"src/**/*.html\" \"src/**/*.{png,jpg,gif}\" -- run-s build:assets",
-    "watch": "run-p serve watch:*"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run check"
   },
   "devDependencies": {
-    "browser-sync": "^2.18.0",
-    "copyfiles": "^1.2.0",
-    "node-sass": "^4.5.0",
-    "npm-run-all": "^4.0.0",
-    "onchange": "^3.2.0",
-    "typescript": "^2.3.0"
+    "gts": "^0.9.0",
+    "typescript": "^3.1.6"
   }
 }
