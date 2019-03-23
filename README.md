@@ -22,7 +22,7 @@ applications where the source value needs to be defined dynamically.
 * 0.1.0
   * Initial commit
 
-# Getting started
+## Getting started
 First clone this repository
 ```
 git clone https://github.com/dan1wang/Conversely.git <project_name>
@@ -35,8 +35,7 @@ npm install
 ```
   
 ## Usage
-***Conversely*** converts a primitive/object/function to an equivalent
-primitive value.
+For primitive to primitive conversion:
 
 ```JavaScript
 const Xfy = require('conversely');
@@ -46,9 +45,8 @@ Xfy.stringify(0.3); // returns '0.3'
 Xfy.booleanify(1); // returns true
 ```
 
-## Intermediary Property
-
-***Conversely*** works with intermediary property objects.
+### Intermediary Property
+For object to primitive conversion:
 
 ```JavaScript
 const Xfy = require('conversely');
@@ -62,9 +60,8 @@ const person = {
 Xfy.stringify(person); // returns 'John Doe'
 ```
 
-## Function
-
-***Conversely*** works with parameter-less functions.
+### Dynamic Evaluation
+For function to primitive conversion:
 
 ```JavaScript
 const Xfy = require('conversely');
