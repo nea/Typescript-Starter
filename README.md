@@ -1,5 +1,5 @@
 # Conversely
-A dependency-free, platform-independent library of functions for evaluating a
+A lightweight, platform-independent library of functions for evaluating a
 primitive, object, or function and converting it to either a primitive or
 `null`. Conversely is intended for use in data validation or similar
 applications where the source value needs to be defined dynamically.
@@ -69,6 +69,12 @@ const Xfy = require('conversely');
 const TOSS_UP = function() {return (Math.random() < 0.5)?0:1;};
 
 Xfy.booleanify(TOSS_UP); // returns true or false randomly
+```
+
+The library also works with function returning an intermediary property object:
+```JavaScript
+const NOW = function() {return new Date() };
+Xfy.numberify(NOW); // returns 1553307233321 or something like that
 ```
 
 # Configuration
