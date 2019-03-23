@@ -1,4 +1,7 @@
 # Conversely
+
+***PROJECT IS WORK IN PROGRESS***
+
 A lightweight, platform-independent library of functions for evaluating a
 primitive, object, or function and converting it to either a primitive or
 `null`. Conversely is intended for use in data validation or similar
@@ -16,11 +19,12 @@ applications where the source value needs to be defined dynamically.
   all return `null` instead of `'Infinity'`, `NaN`,  or `false`.
 * Ideal for data validation or application which requires conversion of
   dynamically defined values.
-* Works with modern browser, Node.js, and Google Apps Script.
+* Works with any modern browser, [Node.js](https://nodejs.org/),
+  and [Google Apps Script](https://developers.google.com/apps-script/).
 
 ## Latest Versions
-* 0.1.0
-  * Initial commit
+* ~~0.1.0~~
+  * ~~Initial commit~~
 
 ## Getting started
 First clone this repository
@@ -35,21 +39,25 @@ npm install
 ```
   
 ## Usage
+
+All examples below assume you are using Node.js. For using the library with
+a browser, see [import](doc/import).
+
 For primitive to primitive conversion:
 
 ```JavaScript
-const Xfy = require('conversely');
+import { stringify, stringify, booleanify } from 'conversely';
 
-Xfy.numberify('1.1'); // returns 1.1
-Xfy.stringify(0.3); // returns '0.3'
-Xfy.booleanify(1); // returns true
+numberify('1.1'); // returns 1.1
+stringify(0.3); // returns '0.3'
+booleanify(1); // returns true
 ```
 
 ### Intermediary Property
 For object to primitive conversion:
 
 ```JavaScript
-const Xfy = require('conversely');
+import { stringify } from 'conversely';
 
 const person = {
   fName: 'John',
@@ -57,24 +65,24 @@ const person = {
   valueOf: function() { return this.fName + ' ' + this.lName; },
 };
 
-Xfy.stringify(person); // returns 'John Doe'
+stringify(person); // returns 'John Doe'
 ```
 
 ### Dynamic Evaluation
 For function to primitive conversion:
 
 ```JavaScript
-const Xfy = require('conversely');
+import { booleanify } from 'conversely';
 
 const TOSS_UP = function() {return (Math.random() < 0.5)?0:1;};
 
-Xfy.booleanify(TOSS_UP); // returns true or false randomly
+booleanify(TOSS_UP); // returns true or false randomly
 ```
 
 The library also works with function returning an intermediary property object:
 ```JavaScript
 const NOW = function() {return new Date() };
-Xfy.numberify(NOW); // returns 1553307233321 or something like that
+numberify(NOW); // returns 1553307233321 or something like that
 ```
 
 # Configuration
